@@ -1,78 +1,99 @@
 #include <stdio.h>
 
-char board[3][3]; // 3x3 board
-char currentPlayer = 'X'; // Starting player
+char board[3][3];
+char CP = 'X';
 
-// Function to initialize the board
-void initializeBoard() {
+void Board() 
+{
     for (int i = 0; i < 3; i++)
+    {
         for (int j = 0; j < 3; j++)
+        {
             board[i][j] = ' ';
+        }
+    }
+        
 }
 
-// Function to print the board
-void printBoard() {
+void print() 
+{
     printf("  0 1 2\n");
-    for (int i = 0; i < 3; i++) {
+    for (int i = 0; i < 3; i++) 
+    {
         printf("%d ", i);
-        for (int j = 0; j < 3; j++) {
+        for (int j = 0; j < 3; j++) 
+        {
             printf("%c", board[i][j]);
             if (j < 2) printf("|");
         }
         printf("\n");
-        if (i < 2) printf("  -----\n");
+        if (i < 2) 
+        {
+            printf("  -----\n");
+        }
     }
 }
-
-// Function to check for a win
-int checkWin() {
+int checkWin() 
+{
     for (int i = 0; i < 3; i++)
-        if ((board[i][0] == currentPlayer && board[i][1] == currentPlayer && board[i][2] == currentPlayer) ||
-            (board[0][i] == currentPlayer && board[1][i] == currentPlayer && board[2][i] == currentPlayer))
-            return 1;
+    {
+        if ((board[i][0] == CP && board[i][1] == CP && board[i][2] == CP) ||
+            (board[0][i] == CP && board[1][i] == CP && board[2][i] == CP))
+            {
+                return 1;
+            }
+            
     
-    if ((board[0][0] == currentPlayer && board[1][1] == currentPlayer && board[2][2] == currentPlayer) ||
-        (board[0][2] == currentPlayer && board[1][1] == currentPlayer && board[2][0] == currentPlayer))
-        return 1;
+    if ((board[0][0] == CP && board[1][1] == CP && board[2][2] == CP) ||
+        (board[0][2] == CP && board[1][1] == CP && board[2][0] == CP))
+        {
+            return 1;
+        }
+        
     
     return 0;
-}
-
-// Function to make a move
-int makeMove(int row, int col) {
-    if (row >= 0 && row < 3 && col >= 0 && col < 3 && board[row][col] == ' ') {
-        board[row][col] = currentPlayer;
-        return 1; // Move successful
     }
-    return 0; // Invalid move
+        
 }
-
-// Main function
-int main() {
-    initializeBoard();
+int Move(int row, int col) 
+{
+    if (row >= 0 && row < 3 && col >= 0 && col < 3 && board[row][col] == ' ') 
+    {
+        board[row][col] = CP;
+        return 1;
+    }
+    return 0;
+}
+int main() 
+{
+    Board();
     int moves = 0;
 
-    while (1) {
-        printBoard();
+    while (1) 
+    {
+        print();
         int row, col;
-        printf("Player %c, enter your move (row and column): ", currentPlayer);
+        printf("Player %c, enter your move (row and column): ",CP);
         scanf("%d %d", &row, &col);
 
-        if (makeMove(row, col)) {
+        if (Move(row, col)) 
+        {
             moves++;
-            if (checkWin()) {
-                printBoard();
-                printf("Player %c wins!\n", currentPlayer);
+            if (checkWin()) 
+            {
+                print();
+                printf("Player %c wins!\n", CP);
                 break;
             }
             if (moves == 9) {
-                printBoard();
+                print();
                 printf("It's a draw!\n");
                 break;
             }
-            // Switch player
-            currentPlayer = (currentPlayer == 'X') ? 'O' : 'X';
-        } else {
+            CP = (CP == 'X') ? 'O' : 'X';
+        } 
+        else 
+        {
             printf("Invalid move, try again.\n");
         }
     }
