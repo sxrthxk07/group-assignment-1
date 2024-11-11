@@ -90,7 +90,6 @@ int main()
                 printf("It's a draw!\n");
                 break;
             }
-            CP = (CP == 'X') ? 'O' : 'X';
         } 
         else 
         {
